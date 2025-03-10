@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\PostLike;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -36,13 +37,13 @@ class Blog extends Component
             $query->where('title', 'like', '%' . $this->search . '%');
         }
 
-        return $query->paginate(3);
+        return $query->paginate(6);
     }
 
     #[Computed()]
     public function categories()
     {
-        return Category::all();
+        return PostCategory::all();
     }
 
     // Reset pagination when search term changes

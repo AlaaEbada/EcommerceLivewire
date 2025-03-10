@@ -9,7 +9,7 @@
             <a class="nav-link text-muted my-2 position-relative notifications-icon" href="./#" data-toggle="modal" data-target=".modal-notif">
                 <span class="fe fe-bell fs-3" style="font-size: 25px;"></span>
                 <span id="notificationsIconCounter" class="badge bg-danger rounded-pill text-white position-absolute top-0 start-100 translate-middle p-1 fs-7">
-                    {{-- {{Auth::guard('admin')->user()->notifications()->unread()->count()}} --}}
+                    {{Auth::guard('admin')->user()->notifications()->unread()->count()}}
                 </span>
             </a>
 
@@ -28,7 +28,7 @@
                         </button>
                     </div>
                     <div class="modal-body" id="notificationsModal">
-                        {{-- <div class="list-group list-group-flush my-n3">
+                        <div class="list-group list-group-flush my-n3">
                             @if (Auth::guard('admin')->user()->notifications()->count() > 0)
 
                             @foreach (Auth::guard('admin')->user()->notifications()->take(4)->get() as $notification)
@@ -39,7 +39,7 @@
                                         <span class="fe fe-box fe-24"></span>
                                     </div>
                                     <div class="col">
-                                        <small><strong> New User Registered</strong></small>
+                                        <small><strong> New Order Placed</strong></small>
                                         <div class="my-0 text-muted small">{{$notification->data['message']}}</div>
                                         <small class="badge badge-pill badge-light text-muted">{{$notification->created_at->diffForHumans()}}</small>
                                     </div>
@@ -53,7 +53,7 @@
 
                             @endif
 
-                        </div> <!-- / .list-group --> --}}
+                        </div> <!-- / .list-group -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="clearNotifications" class="btn btn-secondary btn-block" data-dismiss="modal">Clear

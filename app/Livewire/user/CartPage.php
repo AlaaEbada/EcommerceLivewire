@@ -2,9 +2,13 @@
 
 namespace App\Livewire\User;
 
+use App\Events\NewOrderPlaced;
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Notifications\NewOrderNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Stripe;
 
@@ -21,17 +25,26 @@ class CartPage extends Component
     }
 
     public function loadCart()
-    {
-        $this->cartItems = Cart::where('user_id', Auth::id())->get();
-        $this->totalPrice = $this->cartItems->sum(fn($item) => $item->price * $item->quantity);
-    }
+{
+    $this->cartItems = Cart::where('user_id', Auth::id())->get();
+    $this->totalPrice = $this->cartItems->sum(fn($item) => $item->price * $item->quantity);
+}
 
-    public function removeItem($cartId)
-    {
-        Cart::where('id', $cartId)->where('user_id', Auth::id())->delete();
+    
+public function removeItem($cartId)
+{
+    $cartItem = Cart::find($cartId);
+
+    if ($cartItem && $cartItem->user_id == Auth::id()) {
+        $cartItem->delete();
         $this->loadCart();
+        $this->dispatch('cartUpdated');
         session()->flash('message', 'Product removed from cart successfully.');
+    } else {
+        session()->flash('error', 'Item not found.');
     }
+}
+    
 
     public function increaseQuantity($cartId)
     {
@@ -59,7 +72,7 @@ class CartPage extends Component
         $cartItems = Cart::where("user_id", $user_id)->get();
 
         foreach ($cartItems as $cartItem) {
-            Order::create([
+            $order = Order::create([
                 'name' => $cartItem->name,
                 'email' => $cartItem->email,
                 'user_id' => $cartItem->user_id,
@@ -71,6 +84,14 @@ class CartPage extends Component
                 'payment_status' => 'Cash On Delivery',
                 'delivery_status' => 'Processing',
             ]);
+
+            $admin = Admin::find(1);
+            // $admin->notify(new NewOrderNotification($user)); //this is to send to just one admin
+            Notification::send($admin, new NewOrderNotification($order)); // this is better for more than one
+
+            NewOrderPlaced::dispatch($order);
+
+
             $cartItem->delete();
         }
 
@@ -93,7 +114,7 @@ class CartPage extends Component
         $cartItems = Cart::where("user_id", $user_id)->get();
 
         foreach ($cartItems as $cartItem) {
-            Order::create([
+            $order = Order::create([
                 'user_id' => $cartItem->user_id,
                 'product_title' => $cartItem->product_title,
                 'price' => $cartItem->price,
@@ -103,6 +124,13 @@ class CartPage extends Component
                 'payment_status' => 'Paid',
                 'delivery_status' => 'Processing',
             ]);
+
+            $admin = Admin::find(1);
+            // $admin->notify(new NewOrderNotification($user)); //this is to send to just one admin
+            Notification::send($admin, new NewOrderNotification($order)); // this is better for more than one
+
+            NewOrderPlaced::dispatch($order);
+
             $cartItem->delete();
         }
 

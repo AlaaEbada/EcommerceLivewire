@@ -29,7 +29,7 @@
 <script src='{{ asset('assets') }}/js/uppy.min.js'></script>
 <script src='{{ asset('assets') }}/js/quill.min.js'></script>
 
-{{-- <script>
+<script>
     $(document).ready(function() {
 
         // Mark All Messages To Read
@@ -77,7 +77,9 @@
 
 
 
-</script> --}}
+</script>
+
+
 <script>
    $(document).ready(function() {
     $(".collapseSidebar").on("click", function(e) {

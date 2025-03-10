@@ -38,10 +38,8 @@ class Shop extends Component
 
     public function addToCart($productId)
     {
-        if (!Auth::check()) {
-            return redirect('login');
-        }
-
+        if (Auth::check()) {
+            
         $user = Auth::user();
         $product = Product::findOrFail($productId);
         $selectedQuantity = $this->quantity[$productId] ?? 1; // Default to 1 if not set
@@ -73,7 +71,12 @@ class Shop extends Component
 
         $this->dispatch('cartUpdated'); // Notify other components (like a cart icon)
 
-        session()->flash('message', 'Product added to cart successfully!');
+        $this->dispatch('alert', type: 'success', title: __('Product added successfully'));
+
+        } else{
+            return redirect()->route('login');
+        }
+
     }
 
         public function render()

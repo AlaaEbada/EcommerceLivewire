@@ -25,7 +25,7 @@
             <form wire:submit.prevent="addToCart({{$productId}})" class="space-y-4">
                 <div class="flex items-center space-x-4">
                     <label for="quantity" class="text-gray-700">Quantity:</label>
-                    <input type="number" wire:model="quantity" min="1" value="1" id="quantity" class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input  type="number"  wire:model="quantity.{{ $product->id }}" min="1" value="1" id="quantity" class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <button type="submit" class="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300">
                     <i class="fas fa-shopping-cart mr-2"></i> Add to Cart

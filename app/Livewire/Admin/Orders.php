@@ -14,7 +14,6 @@ class Orders extends Component
         if ($order && $order->delivery_status == 'Processing') {
             $order->delivery_status = 'Canceled';
             $order->save();
-            $this->loadOrders();
         }
     }
     public function markAsDelivered($orderId)

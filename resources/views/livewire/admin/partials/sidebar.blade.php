@@ -20,16 +20,15 @@
 
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <!-- Dashboard -->
-            <li class="nav-item">
-                <a wire:navigate href="/admin" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+            <li class="">
+                <a  href="/admin" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Dashboard</span>
                 </a>
             </li>
-
              <!-- Orders -->
-             <li class="nav-item">
-                <a wire:navigate href="/admin/orders"
+             <li class="">
+                <a href="/admin/orders"
                     class="nav-link {{ request()->is('admin/orders') ? 'active' : '' }}">
                     <i class="fe fe-tag fe-16"></i>
                     <span class="ml-3 item-text">Orders </span>
@@ -38,7 +37,7 @@
 
 
             <!-- Products Section -->
-            <li class="nav-item " x-data="{ open: {{ request()->is('admin/view_product', 'admin/add_product', 'admin/edit_product') ? 'true' : 'false' }} }">
+            <li class="" x-data="{ open: {{ request()->is('admin/view_product', 'admin/add_product', 'admin/edit_product') ? 'true' : 'false' }} }">
 
                 <a href="#"
                     class="nav-link flex items-center justify-between
@@ -57,13 +56,13 @@
                 <!-- Sidebar Nested Items -->
                 <ul x-show="open" x-cloak x-transition class="pl-4 border-l border-gray-200 ml-4 mt-1">
                     <li>
-                        <a wire:navigate href="/admin/view_product"
+                        <a  href="/admin/view_product"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/view_product') ? 'text-[#0045ce] underline' : '' }}">
                             View Products
                         </a>
                     </li>
                     <li>
-                        <a wire:navigate href="/admin/add_product"
+                        <a  href="/admin/add_product"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/add_product') ? 'text-[#0045ce] underline' : '' }}">
                             Add Product
                         </a>
@@ -72,8 +71,8 @@
             </li>
 
             <!-- Categories -->
-            <li class="nav-item">
-                <a wire:navigate href="/admin/categories"
+            <li class="">
+                <a  href="/admin/categories"
                     class="nav-link {{ request()->is('admin/categories') ? 'active' : '' }}">
                     <i class="fe fe-list fe-16"></i>
                     <span class="ml-3 item-text">Categories</span>
@@ -84,7 +83,7 @@
 
             <!-- Posts -->
 
-            <li class="nav-item " x-data="{ open: {{ request()->is('admin/posts', 'admin/add_post', 'admin/edit_post') ? 'true' : 'false' }} }">
+            <li class=" " x-data="{ open: {{ request()->is('admin/posts', 'admin/add_post', 'admin/edit_post') ? 'true' : 'false' }} }">
 
                 <a href="#"
                     class="nav-link flex items-center justify-between
@@ -103,13 +102,13 @@
                 <!-- Sidebar Nested Items -->
                 <ul x-show="open" x-cloak x-transition class="pl-4 border-l border-gray-200 ml-4 mt-1">
                     <li>
-                        <a wire:navigate href="/admin/posts"
+                        <a href="/admin/posts"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/posts') ? 'text-[#0045ce] underline' : '' }}">
                             View Posts
                         </a>
                     </li>
                     <li>
-                        <a wire:navigate href="/admin/add_post"
+                        <a  href="/admin/add_post"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/add_post') ? 'text-[#0045ce] underline' : '' }}">
                             Add Post
                         </a>
@@ -118,8 +117,8 @@
             </li>
 
             <!-- Post Categories -->
-            <li class="nav-item">
-                <a wire:navigate href="/admin/post_categories"
+            <li class="">
+                <a href="/admin/post_categories"
                     class="nav-link {{ request()->is('admin/post_categories') ? 'active' : '' }}">
                     <i class="fe fe-tag fe-16"></i>
                     <span class="ml-3 item-text">Post Categories</span>
@@ -129,7 +128,7 @@
 
             <!-- Users -->
 
-            <li class="nav-item " x-data="{ open: {{ request()->is('admin/users', 'admin/add_user', 'admin/edit_user') ? 'true' : 'false' }} }">
+            <li class="" x-data="{ open: {{ request()->is('admin/users', 'admin/add_user', 'admin/edit_user') ? 'true' : 'false' }} }">
 
                 <a href="#"
                     class="nav-link flex items-center justify-between
@@ -148,13 +147,13 @@
                 <!-- Sidebar Nested Items -->
                 <ul x-show="open" x-cloak x-transition class="pl-4 border-l border-gray-200 ml-4 mt-1">
                     <li>
-                        <a wire:navigate href="/admin/users"
+                        <a href="/admin/users"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/users') ? 'text-[#0045ce] underline' : '' }}">
                             View Users
                         </a>
                     </li>
                     <li>
-                        <a wire:navigate href="/admin/add_user"
+                        <a  href="/admin/add_user"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/add_user') ? 'text-[#0045ce] underline' : '' }}">
                             Add User
                         </a>
@@ -165,7 +164,7 @@
 
              <!-- Admins -->
 
-             <li class="nav-item " x-data="{ open: {{ request()->is('admin/admins', 'admin/add_admin', 'admin/edit_admin') ? 'true' : 'false' }} }">
+             <li class="" x-data="{ open: {{ request()->is('admin/admins', 'admin/add_admin', 'admin/edit_admin') ? 'true' : 'false' }} }">
 
                 <a href="#"
                     class="nav-link flex items-center justify-between
@@ -184,13 +183,13 @@
                 <!-- Sidebar Nested Items -->
                 <ul x-show="open" x-cloak x-transition class="pl-4 border-l border-gray-200 ml-4 mt-1">
                     <li>
-                        <a wire:navigate href="/admin/admins"
+                        <a  href="/admin/admins"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/admins') ? 'text-[#0045ce] underline' : '' }}">
                             View Admins
                         </a>
                     </li>
                     <li>
-                        <a wire:navigate href="/admin/add_admin"
+                        <a  href="/admin/add_admin"
                             class="block px-4 py-2 hover:bg-gray-100 {{ request()->is('admin/add_admin') ? 'text-[#0045ce] underline' : '' }}">
                             Add Admin
                         </a>

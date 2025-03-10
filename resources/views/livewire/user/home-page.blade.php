@@ -18,7 +18,7 @@
 
             <!-- Right Content (Image) -->
             <div class="hidden sm:block relative w-1/2">
-                <img src="/images/hero.jpg" alt="Illustration" class="w-full h-auto object-cover" />
+                {{-- <img src="/images/hero.jpg" alt="Illustration" class="w-full h-auto object-cover" /> --}}
             </div>
         </div>
     </section>

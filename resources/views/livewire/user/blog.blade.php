@@ -11,8 +11,8 @@
     </style>
 
     <!-- Blog Page Hero Section -->
-    <x-hero-section title="{{ __('blog_title') }}"
-        subtitle="{{ __('blog_subtitle') }}" />
+    <x-hero-section title="{{ __('Blog') }}"
+        subtitle="{{ __('Explore our latest insights, stories, and industry news. Stay up-to-date with our thoughts and expertise.') }}" />
 
     <section id="blog" class="py-20 px-6 bg-gray-50">
         <div class="max-w-7xl mx-5 md:mx-auto grid grid-cols-1 lg:grid-cols-4 gap-12 ">
@@ -22,8 +22,8 @@
             <div class="col-span-3 md:col-span-1 bg-white rounded-lg shadow-md p-6">
                 <!-- Search Section -->
                 <div class="mb-6">
-                    <h4 class="text-xl font-semibold mb-4">{{ __('search_placeholder') }}</h4>
-                    <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('search_placeholder') }}" class="w-full p-2 border rounded-md">
+                    <h4 class="text-xl font-semibold mb-4">{{ __('Search...') }}</h4>
+                    <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('Search...') }}" class="w-full p-2 border rounded-md">
                 </div>
 
                 <!-- Categories Section -->
@@ -77,7 +77,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                     @foreach ($this->posts as $post)
                         <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:shadow-xl hover:scale-105 transition duration-300">
-                            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="Blog Post Image" class="w-full h-56 object-cover">
+                            <a wire:navigate href="{{ route('post.show', ['slug' => $post->slug]) }}">
+                                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="Blog Post Image" class="w-full h-56 object-cover">
+                            </a>
                             <div class="p-6">
                                 <h3 class="text-2xl font-semibold text-gray-900 mb-4 break-words">
                                     {{ $post->title }}
@@ -93,10 +95,10 @@
                                         <span class="text-lg">{{ $post->likes->count() }}</span>
                                     </button> --}}
 
-                                    {{-- <a wire:navigate href="{{ route('post.show', ['slug' => $post->slug]) }}"
+                                    <a wire:navigate href="{{ route('post.show', ['slug' => $post->slug]) }}"
                                         class="text-primary-light font-semibold hover:text-primary transition duration-300">
-                                        {{ __('messages.read_more') }}
-                                    </a> --}}
+                                        {{ __('Read More') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

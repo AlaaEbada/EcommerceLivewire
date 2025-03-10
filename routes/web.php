@@ -28,8 +28,11 @@ use App\Livewire\User\CartPage;
 use App\Livewire\User\HomePage;
 use App\Livewire\User\OrderPage;
 use App\Livewire\User\Shop;
+use App\Livewire\User\SinglePost;
 use App\Livewire\User\SingleProduct;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +69,9 @@ Route::middleware([
     Route::get('/stripe/{total}', PaymentForm::class);
 
     Route::get('/product/{productId}', SingleProduct::class)->name('product.show');
+
+    Route::get('/post/{slug}', SinglePost::class)->name('post.show');
+
 
 
 
@@ -115,6 +121,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/edit_admin/{adminId}', EditAdmins::class)->name('edit.admin');
 
         Route::get('/orders', Orders::class)->name('orders');
+
+        Route::get('/notification/markAsRead', function(){
+            Auth::guard('admin')->user()->notifications->markAsRead();
+        })->name('notifications.read');
+
+        Route::get('/notification/clear', function(){
+            Auth::guard('admin')->user()->notifications()->delete();
+        })->name('notifications.clear');
 
 
     });

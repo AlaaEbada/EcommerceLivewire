@@ -4,7 +4,7 @@
         <div class="mb-8 max-w-lg mx-auto">
                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                     <input wire:model.live.debounce.500="search" type="text" name="search" placeholder="Search for something"
-                        class="flex-1 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
         </div>
         <!-- Featured Products -->

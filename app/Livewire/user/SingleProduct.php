@@ -11,6 +11,8 @@ class SingleProduct extends Component
 {
     public $product;
     public $productId;
+    public $quantity = [];
+
 
     public function mount($productId)
     {
@@ -25,7 +27,7 @@ class SingleProduct extends Component
 
         $user = Auth::user();
         $product = Product::findOrFail($productId);
-        $selectedQuantity = $this->quantity[$productId] ?? 1; // Default to 1 if not set
+        $selectedQuantity = $this->quantity[$productId] ?? 1;
 
         $cartItem = Cart::where('product_id', $productId)
             ->where('user_id', $user->id)
@@ -52,7 +54,7 @@ class SingleProduct extends Component
 
         $this->dispatch('cartUpdated'); // Notify other components (like a cart icon)
 
-        session()->flash('message', 'Product added to cart successfully!');
+        $this->dispatch('alert', type: 'success', title: __('Product added successfully'));
     }
 
     public function render()

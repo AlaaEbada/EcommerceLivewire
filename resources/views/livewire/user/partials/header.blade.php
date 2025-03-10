@@ -159,8 +159,9 @@
                                 </li>
 
                                 <li
-                                    class="mt-4 text-center text-lg font-semibold hover:text-green-400 transition-colors duration-200">
-                                    <a wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                                    class="mt-4 text-center text-lg font-semibold hover:text-green-400 transition-colors duration-200 
+                                    {{ request()->is('contact') ? 'text-green-500 ' : '' }}">
+                                    <a wire:navigate href="{{ route('profile.show') }}">
                                         {{ __('profile') }}
                                     </a>
                                 </li>

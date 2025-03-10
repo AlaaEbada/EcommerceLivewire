@@ -5,15 +5,16 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Post;
-use App\Models\Category;
 use App\Models\PostCategory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AddPost extends Component
 {
     use WithFileUploads;
 
     public $title, $content, $slug, $category_id, $featured_image;
+    public $autoGenerateSlug = true; // Flag to control auto-generation
 
     protected $rules = [
         'title' => 'required|string|min:3|max:255',
@@ -23,6 +24,20 @@ class AddPost extends Component
         'featured_image' => 'required|image|max:2048',
     ];
 
+    // Automatically generate the slug when the title changes
+    public function updatedTitle($value)
+    {
+        if ($this->autoGenerateSlug) {
+            $this->slug = Str::slug($value, '-');
+        }
+    }
+
+    // Stop auto-generating the slug if the user manually edits it
+    public function updatedSlug($value)
+    {
+        $this->autoGenerateSlug = false;
+    }
+
     public function addPost()
     {
         $this->validate();
@@ -31,21 +46,20 @@ class AddPost extends Component
             $imagePath = $this->featured_image->store('posts', 'public');
         }
 
-        // إضافة البوست مع تسجيل user_id
+        // Create the post
         Post::create([
             'title' => $this->title,
             'content' => $this->content,
             'slug' => $this->slug,
             'category_id' => $this->category_id,
             'user_id' => Auth::guard('admin')->id(),
-
             'featured_image' => $imagePath,
         ]);
 
-        // إعادة ضبط الحقول
-        $this->reset(['title', 'content', 'slug', 'category_id', 'featured_image']);
+        // Reset the form fields
+        $this->reset(['title', 'content', 'slug', 'category_id', 'featured_image', 'autoGenerateSlug']);
 
-        // إرسال رسالة نجاح
+        // Flash a success message
         session()->flash('message', 'Post Added Successfully');
     }
 

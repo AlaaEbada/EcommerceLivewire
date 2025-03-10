@@ -20,6 +20,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-300">
+                @if($cartItems && $cartItems->isNotEmpty())
                 @foreach ($cartItems as $cart)
                     <tr class="hover:bg-gray-100 transition">
                         <td class="p-4 text-center">
@@ -49,6 +50,8 @@
                         </td>
                     </tr>
                 @endforeach
+
+                @endif
             </tbody>
         </table>
     </div>

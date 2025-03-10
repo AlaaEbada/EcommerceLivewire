@@ -8,25 +8,21 @@
     <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Add New Post</h2>
 
     <form wire:submit.prevent="addPost">
+        <!-- Title -->
         <div class="mb-6">
             <label class="block text-gray-700 font-bold mb-2">Post Title:</label>
             <input type="text" wire:model="title" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400">
             @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
+        <!-- Content -->
         <div class="mb-6">
             <label class="block text-gray-700 font-bold mb-2">Content:</label>
             <textarea wire:model="content" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400"></textarea>
             @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <div class="mb-6">
-            <label class="block text-gray-700 font-bold mb-2">Slug:</label>
-            <input type="text" wire:model="slug" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400">
-            @error('slug') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
-
-
+        <!-- Category -->
         <div class="mb-6">
             <label class="block text-gray-700 font-bold mb-2">Category:</label>
             <select wire:model="category_id" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400">
@@ -38,6 +34,7 @@
             @error('category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
+        <!-- Featured Image -->
         <div class="mb-6">
             <label class="block text-gray-700 font-bold mb-2">Featured Image:</label>
             <input type="file" wire:model="featured_image" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400">
@@ -55,6 +52,7 @@
             @endif
         </div>
 
+        <!-- Submit Button -->
         <div class="text-center">
             <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition duration-300"
                 wire:loading.attr="disabled">

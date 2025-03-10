@@ -2,11 +2,15 @@
 
 namespace App\Livewire\User;
 
+use App\Events\NewOrderPlaced;
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Notifications\NewOrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class HomePage extends Component
@@ -31,8 +35,10 @@ class HomePage extends Component
 
     public function addToCart($productId)
     {
+
         if (!Auth::check()) {
-            return redirect('login');
+            return redirect('/login');
+
         }
 
         $user = Auth::user();
@@ -48,7 +54,7 @@ class HomePage extends Component
             $cartItem->price = ($product->discount_price ?? $product->price) * $cartItem->quantity;
             $cartItem->save();
         } else {
-            Cart::create([
+            $order = Cart::create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone' => $user->phone,
@@ -60,13 +66,14 @@ class HomePage extends Component
                 'product_id' => $product->id,
                 'quantity' => $selectedQuantity,
             ]);
+
         }
 
         $this->updateCartCount();
 
         $this->dispatch('cartUpdated'); // Notify other components (like a cart icon)
 
-        session()->flash('message', 'Product added to cart successfully!');
+        $this->dispatch('alert', type: 'success', title: __('Product added successfully'));
     }
 
     public function render()

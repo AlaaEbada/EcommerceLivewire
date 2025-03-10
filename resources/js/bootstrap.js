@@ -15,10 +15,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import Echo from 'laravel-echo';
 
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
+import Pusher from 'pusher-js';
+window.Pusher = Pusher;
+
+// console.log('Hello From bootstrap js file');
 
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
@@ -30,3 +32,53 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+
+
+
+/** Websockets Echo */
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: "MyCustomApplicationKey",
+    cluster: 'eu',
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    disableStats: true,
+    enabledTransports: ['ws', 'wss'],
+})
+
+
+
+// public channel
+
+
+//If the event in default path just type the => event Name
+
+//And if you wanna use the full path to the event , type (.) before the path => .App\\Events\\NewUserRegisteredEvent
+
+//And if you use the broadcastAs Function, type (.) before the Name => .NewUserRegisteredEventCustom
+
+window.Echo.channel(`orders`)
+.listen('NewOrderPlaced', (e) => {
+        console.log(e);
+        $(".notifications-icon").load(" .notifications-icon > *");
+        $("#notificationsModal").load(" #notificationsModal > *");
+    });
+
+
+// //Privet Channel
+
+//     window.Echo.private(`new_user_channel`)
+
+//     .listen('NewUserRegisteredEvent', (e) => {
+//         console.log(e['message']);
+//         $(".notifications-icon").load(" .notifications-icon > *");
+//         $("#notificationsModal").load(" #notificationsModal > *");
+//     }).listen('NewUserRegisteredEvent2', (e) => {
+//         console.log(e['message']);
+//     }) ;
+
+//     //You can chain more than event on the same channel
+
+
